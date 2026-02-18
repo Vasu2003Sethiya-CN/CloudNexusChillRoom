@@ -20,9 +20,9 @@ export default function TimeSlots({ serviceId, selectedDate, onSelectTime, booke
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow mt-4">
-      <h3 className="text-xl font-semibold text-primary mb-2">Available Times</h3>
-      <div className="grid grid-cols-3 gap-2">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow mt-4">
+      <h3 className="text-lg sm:text-xl font-semibold text-primary mb-4">Available Times</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
         {slots.map(time => {
           const isBooked = bookedTimes?.includes(time);
           return (
@@ -31,10 +31,10 @@ export default function TimeSlots({ serviceId, selectedDate, onSelectTime, booke
               type="button"
               disabled={isBooked}
               onClick={() => onSelectTime(time)}
-              className={`py-2 px-3 rounded border transition ${
+              className={`py-2 sm:py-3 px-2 sm:px-3 rounded border font-medium transition text-sm sm:text-base ${
                 isBooked
                   ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                  : 'bg-accent text-primary hover:bg-secondary hover:text-white'
+                  : 'bg-accent text-primary hover:bg-secondary hover:text-white active:scale-95'
               }`}
             >
               {time}

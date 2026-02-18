@@ -12,7 +12,6 @@ export default function RescheduleForm({ booking, newDateTime, onSuccess, onCanc
     const formattedDateTime = formatLocalDateTime(newDateTime);
 
     try {
-      // Optional: check availability to give immediate feedback
       const slotsRes = await getAvailableSlots(booking.service.id, formattedDate);
       const slots = slotsRes.data || [];
       const targetTime = `${String(newDateTime.getHours()).padStart(2,'0')}:${String(newDateTime.getMinutes()).padStart(2,'0')}`;
@@ -35,29 +34,29 @@ export default function RescheduleForm({ booking, newDateTime, onSuccess, onCanc
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow max-w-md mx-auto">
-      <h2 className="text-2xl font-bold text-primary mb-4">Confirm Reschedule</h2>
-      <div className="space-y-4">
+    <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 rounded-lg shadow w-full max-w-lg mx-auto">
+      <h2 className="text-lg sm:text-2xl font-bold text-primary mb-4">Confirm Reschedule</h2>
+      <div className="space-y-2 sm:space-y-3 text-xs sm:text-base">
         <p><strong>Service:</strong> {booking.service?.name || 'N/A'}</p>
         <p><strong>New Date & Time:</strong> {newDateTime.toLocaleString()}</p>
         <p><strong>Name:</strong> {booking.userName}</p>
-        <p><strong>Email:</strong> {booking.email}</p>
+        <p><strong>Email:</strong> <span className="truncate">{booking.email}</span></p>
         <p><strong>Phone:</strong> {booking.phone}</p>
         {booking.specialRequest && (
           <p><strong>Special Request:</strong> {booking.specialRequest}</p>
         )}
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2 mt-6 pt-4 border-t border-accent">
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-secondary text-white py-2 rounded hover:bg-primary disabled:bg-gray-400"
+            className="flex-1 bg-secondary text-white py-2 sm:py-3 rounded font-medium hover:bg-primary disabled:bg-gray-400 transition min-h-[44px] text-sm sm:text-base active:scale-95 sm:active:scale-100"
           >
             {loading ? 'Processing...' : 'Confirm Reschedule'}
           </button>
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400"
+            className="flex-1 bg-gray-300 text-gray-700 py-2 sm:py-3 rounded font-medium hover:bg-gray-400 transition min-h-[44px] text-sm sm:text-base"
           >
             Back
           </button>
